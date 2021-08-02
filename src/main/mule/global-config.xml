@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:os="http://www.mulesoft.org/schema/mule/os"
+	xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd">
+	<file:config name="csv-files" doc:name="File Config" doc:id="d4b0d36b-c35c-4738-ba31-df3646a70e56" >
+		<file:connection workingDir="${files.dir}" />
+	</file:config>
+	<os:object-store name="batch-vars" doc:name="Object store" doc:id="5b4a91c9-6a78-4cd1-a0f0-5d72144bde74" persistent="false" />
+	<configuration-properties doc:name="Configuration properties" doc:id="e405921a-867e-422d-a830-7e2a8d9be870" file="property/local-config.yaml" />
+	<error-handler name="global-config-error-handler" doc:id="b5efedc0-91c6-41cd-8734-1d6b6720c07e" >
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="c21403f4-c717-4b4a-a860-3dfa85b6c558" type="ANY">
+			<logger level="ERROR" doc:name="Logger" doc:id="ea71a534-c845-47ae-b109-eea2e0338181" message="#[error.description]"/>
+		</on-error-propagate>
+	</error-handler>
+</mule>
